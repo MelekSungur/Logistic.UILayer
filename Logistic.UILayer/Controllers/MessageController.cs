@@ -22,5 +22,17 @@ namespace Logistic.UILayer.Controllers
             var values = db.TBL_MESSAGE.Where(x => x.MessageSender == mail).ToList();
             return View(values);
         }
+        [HttpGet]
+        public ActionResult SendMessage()
+        {
+            return View();
+        }
+        public ActionResult SendMessage(TBL_MESSAGE p)
+        {
+            db.TBL_MESSAGE.Add(p);
+            db.SaveChanges();
+
+            return RedirectToAction("Outbox");
+        }
     }
 }

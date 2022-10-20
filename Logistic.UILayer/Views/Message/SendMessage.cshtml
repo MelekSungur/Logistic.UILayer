@@ -1,0 +1,21 @@
+﻿@model Logistic.UILayer.Models.TBL_MESSAGE
+
+@{
+    ViewBag.Title = "SendMessage";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<h2>Yeni Mesaj Sayfası</h2>
+<form method="Post">
+    <label>Alıcı Mail</label>
+    @Html.TextBoxFor(x=>x.MessageReciever,new { @class="form-control"})
+    <br />
+    <label>Konu</label>
+    @Html.TextBoxFor(x=>x.MessageSubject)
+    <br />
+    <label>Mesaj</label>
+    @Html.TextAreaFor(x=>x.MessageContent,10,4,new {@class="form-control"})
+    <br />
+    <button class="btn btn-info">Mesajı Gönder</button>
+</form>
+
