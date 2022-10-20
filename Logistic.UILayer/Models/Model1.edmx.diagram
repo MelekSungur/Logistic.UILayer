@@ -12,7 +12,7 @@
         <AssociationConnector Association="DBLogisticModel.FK_TBL_ORDER_TBL_CITY" />
         <AssociationConnector Association="DBLogisticModel.FK_TBL_ORDER_TBL_CITY1" />
         <AssociationConnector Association="DBLogisticModel.FK_TBL_ORDER_TBL_CUSTOMER" />
-        <EntityTypeShape EntityType="DBLogisticModel.TBL_MESSAGE" Width="1.5" PointX="0.875" PointY="2.5" />
+        <EntityTypeShape EntityType="DBLogisticModel.TBL_MESSAGE" Width="1.5" PointX="0.5" PointY="2.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

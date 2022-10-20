@@ -18,7 +18,9 @@ namespace Logistic.UILayer.Controllers
         }
         public ActionResult Outbox()
         {
-            return View();
+            var mail = Session["CustomerMail"].ToString();
+            var values = db.TBL_MESSAGE.Where(x => x.MessageSender == mail).ToList();
+            return View(values);
         }
     }
 }
