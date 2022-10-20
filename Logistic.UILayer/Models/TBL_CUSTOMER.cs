@@ -25,6 +25,7 @@ namespace Logistic.UILayer.Models
         public string CustomerSurname { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerPassword { get; set; }
+        public string CustomerMail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_ORDER> TBL_ORDER { get; set; }

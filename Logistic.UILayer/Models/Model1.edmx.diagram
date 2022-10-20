@@ -5,13 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fb855212c0b04491891c2aee847109bb" Name="Diagram1">
-        <EntityTypeShape EntityType="DBLogisticModel.TBL_CATEGORY" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBLogisticModel.TBL_CATEGORY" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBLogisticModel.TBL_CUSTOMER" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBLogisticModel.TBL_CITY" Width="1.5" PointX="5.25" PointY="0.75" />
         <EntityTypeShape EntityType="DBLogisticModel.TBL_ORDER" Width="1.5" PointX="7.5" PointY="0.75" />
         <AssociationConnector Association="DBLogisticModel.FK_TBL_ORDER_TBL_CITY" />
         <AssociationConnector Association="DBLogisticModel.FK_TBL_ORDER_TBL_CITY1" />
         <AssociationConnector Association="DBLogisticModel.FK_TBL_ORDER_TBL_CUSTOMER" />
+        <EntityTypeShape EntityType="DBLogisticModel.TBL_MESSAGE" Width="1.5" PointX="0.875" PointY="2.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

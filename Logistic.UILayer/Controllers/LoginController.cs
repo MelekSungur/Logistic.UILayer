@@ -23,11 +23,11 @@ namespace Logistic.UILayer.Controllers
         [HttpPost]
         public ActionResult Index(TBL_CUSTOMER p)
         {
-            var values = db.TBL_CUSTOMER.FirstOrDefault(x => x.CustomerName == p.CustomerName && x.CustomerPassword==p.CustomerPassword);
+            var values = db.TBL_CUSTOMER.FirstOrDefault(x => x.CustomerMail == p.CustomerMail && x.CustomerPassword==p.CustomerPassword);
             if (values != null)
             {
                 FormsAuthentication.SetAuthCookie(values.CustomerName, false);
-                Session["CustomerName"] = values.CustomerName;
+                Session["CustomerMail"] = values.CustomerMail;
                 return RedirectToAction("Index", "Dashboard");
             }
             else

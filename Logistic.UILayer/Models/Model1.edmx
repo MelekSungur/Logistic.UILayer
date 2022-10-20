@@ -29,6 +29,20 @@
           <Property Name="CustomerSurname" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerMail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBL_MESSAGE">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageSender" Type="nvarchar" MaxLength="50" />
+          <Property Name="MessageReciever" Type="nvarchar" MaxLength="50" />
+          <Property Name="MessageSubject" Type="nvarchar" MaxLength="50" />
+          <Property Name="MessageContent" Type="nvarchar(max)" />
+          <Property Name="MessageDate" Type="date" />
+          <Property Name="SenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiverName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_ORDER">
           <Key>
@@ -83,6 +97,7 @@
           <EntitySet Name="TBL_CATEGORY" EntityType="Self.TBL_CATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CITY" EntityType="Self.TBL_CITY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CUSTOMER" EntityType="Self.TBL_CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MESSAGE" EntityType="Self.TBL_MESSAGE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_ORDER" EntityType="Self.TBL_ORDER" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_TBL_ORDER_TBL_CITY" Association="Self.FK_TBL_ORDER_TBL_CITY">
             <End Role="TBL_CITY" EntitySet="TBL_CITY" />
@@ -119,6 +134,7 @@
           <Property Name="CustomerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBL_ORDER" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CUSTOMER" FromRole="TBL_CUSTOMER" ToRole="TBL_ORDER" />
+          <Property Name="CustomerMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DBLogisticEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_CATEGORY" EntityType="Self.TBL_CATEGORY" />
@@ -137,6 +153,7 @@
             <End Role="TBL_CUSTOMER" EntitySet="TBL_CUSTOMER" />
             <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
           </AssociationSet>
+          <EntitySet Name="TBL_MESSAGE" EntityType="DBLogisticModel.TBL_MESSAGE" />
         </EntityContainer>
         <EntityType Name="TBL_CITY">
           <Key>
@@ -199,6 +216,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_MESSAGE">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageSender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MessageReciever" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MessageSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MessageDate" Type="DateTime" Precision="0" />
+          <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -217,6 +247,7 @@
           <EntitySetMapping Name="TBL_CUSTOMER">
             <EntityTypeMapping TypeName="DBLogisticModel.TBL_CUSTOMER">
               <MappingFragment StoreEntitySet="TBL_CUSTOMER">
+                <ScalarProperty Name="CustomerMail" ColumnName="CustomerMail" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerSurname" ColumnName="CustomerSurname" />
@@ -244,6 +275,20 @@
                 <ScalarProperty Name="FromCity" ColumnName="FromCity" />
                 <ScalarProperty Name="Order_Customer" ColumnName="Order Customer" />
                 <ScalarProperty Name="Order_ID" ColumnName="Order ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MESSAGE">
+            <EntityTypeMapping TypeName="DBLogisticModel.TBL_MESSAGE">
+              <MappingFragment StoreEntitySet="TBL_MESSAGE">
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+                <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+                <ScalarProperty Name="MessageSubject" ColumnName="MessageSubject" />
+                <ScalarProperty Name="MessageReciever" ColumnName="MessageReciever" />
+                <ScalarProperty Name="MessageSender" ColumnName="MessageSender" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
