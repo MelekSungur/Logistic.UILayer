@@ -1,0 +1,71 @@
+﻿@using Logistic.UILayer.Models
+@{
+    Layout = null;
+}
+
+
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<body>
+@Html.Partial("PartialHead")
+
+
+	<h1>Müşteri Kayıt Formu</h1>
+	
+	<div class="login">
+	
+	
+		<span class="log-close"></span>
+		<div class="login-bottom">
+            <form method="post">
+                <div class="text">
+                    <input type="text" placeholder="Adınızı Giriniz" required="" name="CustomerName" />
+
+                    <div class="clear"> </div>
+
+                </div>
+                <div class="text">
+                    <input type="text" placeholder="Soyadınızı Giriniz" required="" name="CustomerSurname" />
+
+                    <div class="clear"> </div>
+                </div>
+                <div class="text">
+                    <input type="text" placeholder="Telefon Numaranızı Giriniz" required="" name="CustomerPhone" />
+
+                    <div class="clear"> </div>
+                </div>
+                <div class="text">
+                    <input type="email" placeholder="Mail Adresinizi Giriniz" required="" name="CustomerMail" />
+
+                    <div class="clear"> </div>
+                </div>
+                <div class="text">
+                    <input type="password" placeholder="Şifrenizi Giriniz" required="" name="CustomerPassword" />
+
+                    <div class="clear"> </div>
+                </div>
+
+
+
+
+                <div class="remember">
+                    
+                    <div class="send">
+                        <input type="submit" value="Kayıt Ol">
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+            </form>
+	</div>
+	</div>
+	<div class="copy-right">
+		<p>©@DateTime.Now.Year Creative Account Form. Tüm Hakları Saklıdır| Design by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
+	</div>
+</body>
+</html>
+

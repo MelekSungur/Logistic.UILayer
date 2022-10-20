@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBLogisticModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBLogisticModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_CATEGORY">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -12,6 +12,13 @@
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="nchar" MaxLength="10" />
           <Property Name="CategoryStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_CITY">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TBL_CUSTOMER">
           <Key>
@@ -23,12 +30,74 @@
           <Property Name="CustomerPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerPassword" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="TBL_ORDER">
+          <Key>
+            <PropertyRef Name="Order ID" />
+          </Key>
+          <Property Name="Order ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order Customer" Type="int" />
+          <Property Name="FromCity" Type="int" />
+          <Property Name="ArrivalCity" Type="int" />
+          <Property Name="OrderProduct" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="OrderDate" Type="smalldatetime" />
+        </EntityType>
+        <Association Name="FK_TBL_ORDER_TBL_CITY">
+          <End Role="TBL_CITY" Type="Self.TBL_CITY" Multiplicity="0..1" />
+          <End Role="TBL_ORDER" Type="Self.TBL_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CITY">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TBL_ORDER">
+              <PropertyRef Name="FromCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ORDER_TBL_CITY1">
+          <End Role="TBL_CITY" Type="Self.TBL_CITY" Multiplicity="0..1" />
+          <End Role="TBL_ORDER" Type="Self.TBL_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CITY">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TBL_ORDER">
+              <PropertyRef Name="ArrivalCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ORDER_TBL_CUSTOMER">
+          <End Role="TBL_CUSTOMER" Type="Self.TBL_CUSTOMER" Multiplicity="0..1" />
+          <End Role="TBL_ORDER" Type="Self.TBL_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CUSTOMER">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="TBL_ORDER">
+              <PropertyRef Name="Order Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBLogisticModelStoreContainer">
           <EntitySet Name="TBL_CATEGORY" EntityType="Self.TBL_CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_CITY" EntityType="Self.TBL_CITY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_CUSTOMER" EntityType="Self.TBL_CUSTOMER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ORDER" EntityType="Self.TBL_ORDER" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_ORDER_TBL_CITY" Association="Self.FK_TBL_ORDER_TBL_CITY">
+            <End Role="TBL_CITY" EntitySet="TBL_CITY" />
+            <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ORDER_TBL_CITY1" Association="Self.FK_TBL_ORDER_TBL_CITY1">
+            <End Role="TBL_CITY" EntitySet="TBL_CITY" />
+            <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ORDER_TBL_CUSTOMER" Association="Self.FK_TBL_ORDER_TBL_CUSTOMER">
+            <End Role="TBL_CUSTOMER" EntitySet="TBL_CUSTOMER" />
+            <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBLogisticModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -49,11 +118,87 @@
           <Property Name="CustomerSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_ORDER" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CUSTOMER" FromRole="TBL_CUSTOMER" ToRole="TBL_ORDER" />
         </EntityType>
         <EntityContainer Name="DBLogisticEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_CATEGORY" EntityType="Self.TBL_CATEGORY" />
           <EntitySet Name="TBL_CUSTOMER" EntityType="Self.TBL_CUSTOMER" />
+          <EntitySet Name="TBL_CITY" EntityType="DBLogisticModel.TBL_CITY" />
+          <EntitySet Name="TBL_ORDER" EntityType="DBLogisticModel.TBL_ORDER" />
+          <AssociationSet Name="FK_TBL_ORDER_TBL_CITY" Association="DBLogisticModel.FK_TBL_ORDER_TBL_CITY">
+            <End Role="TBL_CITY" EntitySet="TBL_CITY" />
+            <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ORDER_TBL_CITY1" Association="DBLogisticModel.FK_TBL_ORDER_TBL_CITY1">
+            <End Role="TBL_CITY" EntitySet="TBL_CITY" />
+            <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_ORDER_TBL_CUSTOMER" Association="DBLogisticModel.FK_TBL_ORDER_TBL_CUSTOMER">
+            <End Role="TBL_CUSTOMER" EntitySet="TBL_CUSTOMER" />
+            <End Role="TBL_ORDER" EntitySet="TBL_ORDER" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TBL_CITY">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_ORDER" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CITY" FromRole="TBL_CITY" ToRole="TBL_ORDER" />
+          <NavigationProperty Name="TBL_ORDER1" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CITY1" FromRole="TBL_CITY" ToRole="TBL_ORDER" />
+        </EntityType>
+        <EntityType Name="TBL_ORDER">
+          <Key>
+            <PropertyRef Name="Order_ID" />
+          </Key>
+          <Property Name="Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Customer" Type="Int32" />
+          <Property Name="FromCity" Type="Int32" />
+          <Property Name="ArrivalCity" Type="Int32" />
+          <Property Name="OrderProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OrderDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TBL_CITY" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CITY" FromRole="TBL_ORDER" ToRole="TBL_CITY" />
+          <NavigationProperty Name="TBL_CITY1" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CITY1" FromRole="TBL_ORDER" ToRole="TBL_CITY" />
+          <NavigationProperty Name="TBL_CUSTOMER" Relationship="DBLogisticModel.FK_TBL_ORDER_TBL_CUSTOMER" FromRole="TBL_ORDER" ToRole="TBL_CUSTOMER" />
+        </EntityType>
+        <Association Name="FK_TBL_ORDER_TBL_CITY">
+          <End Type="DBLogisticModel.TBL_CITY" Role="TBL_CITY" Multiplicity="0..1" />
+          <End Type="DBLogisticModel.TBL_ORDER" Role="TBL_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CITY">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TBL_ORDER">
+              <PropertyRef Name="FromCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ORDER_TBL_CITY1">
+          <End Type="DBLogisticModel.TBL_CITY" Role="TBL_CITY" Multiplicity="0..1" />
+          <End Type="DBLogisticModel.TBL_ORDER" Role="TBL_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CITY">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TBL_ORDER">
+              <PropertyRef Name="ArrivalCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_ORDER_TBL_CUSTOMER">
+          <End Type="DBLogisticModel.TBL_CUSTOMER" Role="TBL_CUSTOMER" Multiplicity="0..1" />
+          <End Type="DBLogisticModel.TBL_ORDER" Role="TBL_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_CUSTOMER">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="TBL_ORDER">
+              <PropertyRef Name="Order_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -77,6 +222,28 @@
                 <ScalarProperty Name="CustomerSurname" ColumnName="CustomerSurname" />
                 <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
                 <ScalarProperty Name="CustomerPassword" ColumnName="CustomerPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_CITY">
+            <EntityTypeMapping TypeName="DBLogisticModel.TBL_CITY">
+              <MappingFragment StoreEntitySet="TBL_CITY">
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_ORDER">
+            <EntityTypeMapping TypeName="DBLogisticModel.TBL_ORDER">
+              <MappingFragment StoreEntitySet="TBL_ORDER">
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderSize" ColumnName="OrderSize" />
+                <ScalarProperty Name="OrderProduct" ColumnName="OrderProduct" />
+                <ScalarProperty Name="ArrivalCity" ColumnName="ArrivalCity" />
+                <ScalarProperty Name="FromCity" ColumnName="FromCity" />
+                <ScalarProperty Name="Order_Customer" ColumnName="Order Customer" />
+                <ScalarProperty Name="Order_ID" ColumnName="Order ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

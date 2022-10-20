@@ -1,0 +1,33 @@
+﻿@using Logistic.UILayer.Models
+@model List<TBL_ORDER>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<h2>Sipariş Listesi</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>Müşteri</th>
+        <th>Nereden</th>
+        <th>Nereye</th>
+        <th>Ürün</th>
+        <th>Boyut</th>
+        <th>Fiyat</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Order_ID</td>
+            <td>@item.TBL_CUSTOMER.CustomerName</td>
+            <td>@item.TBL_CITY.CityName</td>
+            <td>@item.TBL_CITY.CityName</td>
+            <td>@item.OrderProduct</td>
+            <td>@item.OrderSize</td>
+            <td>@item.OrderPrice</td>
+        </tr>
+    }
+</table>
