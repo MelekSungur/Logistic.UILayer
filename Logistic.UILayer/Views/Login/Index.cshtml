@@ -1,0 +1,55 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE HTML>
+
+<html>
+
+@Html.Partial("/Views/Register/PartialHead.cshtml")
+<body>
+
+    <h1>Müşteri Kayıt Formu</h1>
+
+    <div class="login">
+
+
+        <span class="log-close"></span>
+        <div class="login-bottom">
+            <form method="post">
+                <div class="text">
+                    <input type="text" placeholder="Adınızı Giriniz" required="" name="CustomerName" />
+
+                    <div class="clear"> </div>
+
+                </div>
+                <div class="text">
+                    <input type="password" placeholder="Şifrenizi Girin Giriniz" required="" name="CustomerPassword" />
+
+                    <div class="clear"> </div>
+                </div>
+              
+           
+
+
+
+
+                <div class="remember">
+
+                    <div class="send">
+                        <input type="submit" value="Giriş Yap">
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="copy-right">
+        <p>©@DateTime.Now.Year Creative Account Form. Tüm Hakları Saklıdır| Design by  <a href="http://w3layouts.com/" target="_blank">  W3layouts </a></p>
+    </div>
+</body>
+</html>
+

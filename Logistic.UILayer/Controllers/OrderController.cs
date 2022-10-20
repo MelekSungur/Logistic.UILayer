@@ -7,6 +7,7 @@ using Logistic.UILayer.Models;
 
 namespace Logistic.UILayer.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
 
@@ -38,7 +39,7 @@ namespace Logistic.UILayer.Controllers
         public ActionResult UpdateOrder(TBL_ORDER p)
         {
             db.SaveChanges();
-            return (p);
+            return View();
 
         }
 
