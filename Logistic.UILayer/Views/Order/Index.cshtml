@@ -17,6 +17,8 @@
         <th>Ürün</th>
         <th>Boyut</th>
         <th>Fiyat</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -28,6 +30,9 @@
             <td>@item.OrderProduct</td>
             <td>@item.OrderSize</td>
             <td>@item.OrderPrice</td>
+            <td><a href="/Order/DeleteOrder/@item.Order_ID" class="btn btn-danger"></a>Sil</td>
+            <td><a href="/Order/UpdateOrder/@item.Order_ID" class="btn btn-success"></a>Güncelle</td>
         </tr>
     }
 </table>
+<a href="/Order/AddOrder/" class="btn btn-info">Yeni Sipariş Girişi</a>

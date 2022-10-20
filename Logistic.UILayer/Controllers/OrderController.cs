@@ -18,5 +18,29 @@ namespace Logistic.UILayer.Controllers
             var values = db.TBL_ORDER.ToList();
             return View(values);
         }
+        public ActionResult DeleteOrder(int id)
+        {
+            var values = db.TBL_ORDER.Find(id);
+            db.TBL_ORDER.Remove(values);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+        [HttpGet]
+        public ActionResult UpdateOrder(int id)
+        {
+            var values = db.TBL_ORDER.Find(id);
+            return View(values);
+
+
+        }
+        [HttpPost]
+        public ActionResult UpdateOrder(TBL_ORDER p)
+        {
+            db.SaveChanges();
+            return (p);
+
+        }
+
     }
 }
